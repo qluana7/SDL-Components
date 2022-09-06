@@ -6,6 +6,9 @@ project(SDL_components
     LANGUAGES CXX
 )
 
+# Build Option
+set(DEBUG_FILE_OPTION FALSE)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_lib/sdl2)
 
@@ -15,11 +18,19 @@ include_directories(./includes)
 
 file(GLOB_RECURSE SRCS "./src/**.cpp")
 
-add_executable(SDL_components ${SRCS})
-add_executable(DEBUG ${SRCS})
+if (NOT DEBUG_FILE_OPTION)
+    list(FILTER SRCS EXCLUDE REGEX ".*main.cpp")
+endif()
+
+if (DEBUG_FILE_OPTION)
+    add_executable(SDL_components ${SRCS})
+    add_executable(DEBUG ${SRCS})
+endif()
 add_library(components ${SRCS})
 
-target_compile_options(DEBUG PUBLIC -g -DDEBUG)
+if (DEBUG_FILE_OPTION)
+    target_compile_options(DEBUG PUBLIC -g -DDEBUG)
+endif()
 
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
@@ -30,8 +41,10 @@ include_directories(${SDL2_GFX_INCLUDE_DIRS})
 find_package(SDL2_ttf REQUIRED)
 include_directories(${SDL2_TTF_INCLUDE_DIRS})
 
-target_link_libraries(SDL_components ${SDL2_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
-target_link_libraries(DEBUG ${SDL2_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+if (DEBUG_FILE_OPTION)
+    target_link_libraries(SDL_components ${SDL2_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+    target_link_libraries(DEBUG ${SDL2_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+endif()
 target_link_libraries(components PUBLIC ${SDL2_LIBRARIES} ${SDL2_GFX_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 
 add_subdirectory(./examples)

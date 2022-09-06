@@ -70,5 +70,5 @@ _deps
 *.code-workspace
 
 # main test file
-./main.cpp
+src/main.cpp
 build/*
