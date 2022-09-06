@@ -1,0 +1,9 @@
+set(CDIR ${CMAKE_CURRENT_SOURCE_DIR})
+function (add_example name)
+    add_executable(sdl_com_${name} ${name}.cpp)
+    target_link_libraries(sdl_com_${name} PUBLIC components)
+    file(RELATIVE_PATH dir ${CDIR} ${CMAKE_CURRENT_SOURCE_DIR})
+endfunction(add_example)
+
+add_example("button")
+add_example("component_mgr")
