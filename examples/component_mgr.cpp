@@ -5,7 +5,6 @@
 
 #include "components/component.h"
 #include "components/button.h"
-#include "components/label.h"
 
 using namespace std;
 
