@@ -7,3 +7,4 @@ endfunction(add_example)
 
 add_example("button")
 add_example("component_mgr")
+add_example("rectangle")

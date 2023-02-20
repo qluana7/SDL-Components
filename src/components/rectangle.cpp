@@ -17,10 +17,12 @@ void Rectangle::draw(SDL_Renderer* rd) const {
         bkc.R(), bkc.G(), bkc.B(), bkc.A()
     );
 
-    roundedRectangleRGBA(rd,
-        p.x, p.y, p.x + this->get_width(), p.y + this->get_height(), this->radius,
-        bdc.R(), bdc.G(), bdc.B(), bdc.A()
-    );
+    if (bdc != 0) {
+        roundedRectangleRGBA(rd,
+            p.x, p.y, p.x + this->get_width(), p.y + this->get_height(), this->radius,
+            bdc.R(), bdc.G(), bdc.B(), bdc.A()
+        );
+    }
 }
 
 void Rectangle::dispose() { }

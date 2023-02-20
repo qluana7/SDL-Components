@@ -21,7 +21,7 @@ public:
             Rectangle::_def_bd
         ) { }
     Rectangle(Point pt, float w, float h, color::RGBA bg, color::RGBA bd)
-        : ComponentBase::ComponentBase(pt, w, h, bg, Rectangle::_def_fg) { }
+        : ComponentBase::ComponentBase(pt, w, h, bg, Rectangle::_def_fg) { this->_border = bd; }
     Rectangle(Point pt, float w, float h, align::Margin m, align::HorizontalAlign hz, align::VerticalAlign vt, color::RGBA bg, color::RGBA bd)
         : ComponentBase::ComponentBase(w, h, m, hz, vt, bg, _def_fg), _border(bd) { }
 
