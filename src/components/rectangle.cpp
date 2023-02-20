@@ -9,7 +9,18 @@ int Rectangle::event_filter(void* userdata, SDL_Event* e) {
 color::RGBA Rectangle::_def_bd = 0x000000ff;
 
 void Rectangle::draw(SDL_Renderer* rd) const {
-    
+    Point p = this->get_position();
+    color::RGBA bdc = this->_border, bkc = this->_backgd;
+
+    roundedBoxRGBA(rd,
+        p.x, p.y, p.x + this->get_width(), p.y + this->get_height(), this->radius,
+        bkc.R(), bkc.G(), bkc.B(), bkc.A()
+    );
+
+    roundedRectangleRGBA(rd,
+        p.x, p.y, p.x + this->get_width(), p.y + this->get_height(), this->radius,
+        bdc.R(), bdc.G(), bdc.B(), bdc.A()
+    );
 }
 
 void Rectangle::dispose() { }

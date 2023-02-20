@@ -28,6 +28,12 @@ public:
 public:
     const string name() const final { return "Rectangle"; }
     
+    color::RGBA get_border() const { return _border; }
+    double      get_radius() const { return radius;  }
+
+    void set_border(color::RGBA bd) { _border = bd; }
+    void set_radius(double r)       { radius = r;   }
+
     void draw(SDL_Renderer* rd) const override;
     void dispose() override;
     
