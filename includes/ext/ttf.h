@@ -10,7 +10,7 @@ using namespace std;
 class Global_TTF {
 public:
     Global_TTF() {
-        if (_isinit) __throw_runtime_error("Don't init manually!");
+        if (_isinit) return;
         
         if (TTF_Init() < 0) __throw_runtime_error(TTF_GetError());
         
