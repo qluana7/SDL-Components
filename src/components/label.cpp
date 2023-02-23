@@ -11,16 +11,7 @@ color::RGBA Label::_def_fg = 0x00000000;
 void Label::set_content(const content::StringContent& sc) {
     if (text != nullptr) delete text;
     
-    content::StringContent* t = new content::StringContent;
-    t->value = sc.value;
-    t->ttf_location = sc.ttf_location;
-    t->pt = sc.pt;
-    t->margin = sc.margin;
-    t->horizontal = sc.horizontal;
-    t->vertical = sc.vertical;
-    t->init();
-    
-    this->text = t;
+    this->text = const_cast<content::StringContent*>(&sc);
 }
 
 void Label::draw(SDL_Renderer* rd) const {
@@ -31,8 +22,8 @@ void Label::draw(SDL_Renderer* rd) const {
     SDL_Rect area = { (int)this->get_position().x, (int)this->get_position().y, (int)this->_width, (int)this->_height };
     SDL_RenderSetViewport(rd, &area);
     
-    // if (text != nullptr)
-    //     this->text->render(this, rd);
+    if (text != nullptr)
+        this->text->render(this, rd);
     
     SDL_RenderSetViewport(rd, &r);
 }
