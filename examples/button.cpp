@@ -5,12 +5,11 @@
 
 #include "components/component.h"
 #include "components/button.h"
-#include "components/label.h"
 
 #ifdef _WIN32
-#define ARIAL_FONT "C:\\Windows\\Fonts\\arial.ttf"
+#define DEFAULT_FONT "C:\\Windows\\Fonts\\arial.ttf"
 #elif __linux__
-#define ARIAL_FONT "TODO"
+#define DEFAULT_FONT "'PLEASE INPUT FONT LOCATION'"
 #endif
 
 using namespace std;
@@ -74,7 +73,7 @@ int main(int argc, char ** argv) {
     content::StringContent btn1cnt;
     
     btn1cnt.set_color(0x000000ff);
-    btn1cnt.set_font(ARIAL_FONT, 13);
+    btn1cnt.set_font(DEFAULT_FONT, 13);
     btn1cnt.set_horizontal(align::HorizontalAlign::MIDDLE);
     btn1cnt.set_vertical(align::VerticalAlign::MIDDLE);
     btn1cnt.set_value("Click Me!");
