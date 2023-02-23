@@ -7,6 +7,12 @@
 #include "components/button.h"
 #include "components/label.h"
 
+#ifdef _WIN32
+#define ARIAL_FONT "C:\\Windows\\Fonts\\arial.ttf"
+#elif __linux__
+#define ARIAL_FONT "TODO"
+#endif
+
 using namespace std;
 
 SDL_Window* win;
@@ -64,6 +70,17 @@ int main(int argc, char ** argv) {
     btn1.mouse_down_event += btn1_mouse_down;
     btn1.mouse_up_event += btn1_mouse_up;
     btn1.leave_event += btn1_leave;
+    
+    content::StringContent btn1cnt;
+    
+    btn1cnt.set_color(0x000000ff);
+    btn1cnt.set_font(ARIAL_FONT, 13);
+    btn1cnt.set_horizontal(align::HorizontalAlign::MIDDLE);
+    btn1cnt.set_vertical(align::VerticalAlign::MIDDLE);
+    btn1cnt.set_value("Click Me!");
+    
+    btn1.set_content(btn1cnt);
+    
     mgr.add_component(&btn1);
     
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
