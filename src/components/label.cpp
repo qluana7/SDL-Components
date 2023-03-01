@@ -8,10 +8,12 @@ int Label::event_filter(void* userdata, SDL_Event* e) {
 
 color::RGBA Label::_def_fg = 0x00000000;
 
-void Label::set_content(const content::StringContent& sc) {
-    if (text != nullptr) delete text;
-    
+void Label::set_content(content::StringContent& sc) {
     this->text = const_cast<content::StringContent*>(&sc);
+    this->property_changed_event.active(
+        this_object,
+        event::PropertyChangedEventArgs("content", &text, &sc)
+    );
 }
 
 void Label::draw(SDL_Renderer* rd) const {

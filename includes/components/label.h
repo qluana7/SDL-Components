@@ -40,7 +40,7 @@ public:
 public:
     const string name() const final { return "Label"; }
     
-    void set_content(const content::StringContent& sc);
+    void set_content(content::StringContent& sc);
     
     void draw(SDL_Renderer* rd) const override;
     void dispose() override;

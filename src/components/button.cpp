@@ -66,48 +66,6 @@ void Button::init() {
     this->mouse_down_event += button_click;
 }
 
-/*
-void* Button::setprop(const string& name, const void* const data) {
-    int idx;
-    if (propidx.count(name)) idx = propidx.at(name);
-    else if (bpropidx.count(name)) idx = bpropidx.at(name);
-    else return nullptr;
-    
-    switch (idx) {
-        case 0: setret(align::Margin, margin);
-        case 1: setret(align::HorizontalAlign, horizontal);
-        case 2: setret(align::VerticalAlign, vertical);
-        case 3: setret(float, _width);
-        case 4: setret(float, _height);
-        case 5: setret(color::RGBA, _backgd);
-        case 6: setret(color::RGBA, _foregd);
-        
-        case 20: setret(color::RGBA, _border);
-        case 21: psetret(content::ContentBase, content);
-    }
-}
-
-const void* Button::getprop(const string& name) const {
-    int idx;
-    if (propidx.count(name)) idx = propidx.at(name);
-    else if (bpropidx.count(name)) idx = bpropidx.at(name);
-    else return nullptr;
-    
-    switch (idx) {
-        case 0: return &margin;
-        case 1: return &horizontal;
-        case 2: return &vertical;
-        case 3: return &_width;
-        case 4: return &_height;
-        case 5: return &_backgd;
-        case 6: return &_foregd;
-        
-        case 20: return &_border;
-        case 21: return &content;
-    }
-}
-*/
-
 Button::~Button() {
     this->dispose();
 }

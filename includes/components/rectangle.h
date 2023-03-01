@@ -29,10 +29,10 @@ public:
     const string name() const final { return "Rectangle"; }
     
     color::RGBA get_border() const { return _border; }
-    double      get_radius() const { return radius;  }
+    double      get_radius() const { return _radius;  }
 
-    void set_border(color::RGBA bd) { _border = bd; }
-    void set_radius(double r)       { radius = r;   }
+    void set_border(color::RGBA bd);
+    void set_radius(double r);
 
     void draw(SDL_Renderer* rd) const override;
     void dispose() override;
@@ -40,16 +40,8 @@ public:
     int event_filter(void* userdata, SDL_Event* event) final;
 
 private:
-    double radius;
+    double _radius;
     color::RGBA _border;
-    
-    // const unordered_map<string, int> rpropidx {
-    //     { "border", 20 },
-    //     { "radius", 22 }
-    // };
-    // 
-    // void* setprop(const string& name, const void* const data) final;
-    // const void* getprop(const string& name) const final;
     
     static color::RGBA _def_bd;
 };
