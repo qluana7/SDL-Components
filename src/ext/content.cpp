@@ -6,14 +6,25 @@ namespace content {
 
 ContentBase::~ContentBase() { }
 
+const string StringContent::default_font = "fonts/arial.ttf";
+
+StringContent::StringContent(const StringContent& origin)
+    : value(origin.value), color(origin.color),
+      font(origin.font), size(origin.size) { reload_ttf(); }
+
 StringContent::~StringContent() {
-    // TTF_CloseFont(ttf);
+    gtf.freeFont(font);
+}
+
+pair<int, int> StringContent::get_size() {
+    int w, h;
+    TTF_SizeUTF8(this->_ttf, this->value.data(), &w, &h);
+    
+    return {w, h};
 }
 
 void StringContent::render(const components::ComponentBase* comp, SDL_Renderer* rd) {
-    
-    /*
-    SDL_Surface* sf = TTF_RenderUTF8_Blended(ttf, this->value.c_str(), comp->_foregd.color());
+    SDL_Surface* sf = TTF_RenderUTF8_Blended(_ttf, this->value.c_str(), comp->get_foreground().color());
     
     if (sf == nullptr) {
         cout << "SDL : " << TTF_GetError()
@@ -30,19 +41,19 @@ void StringContent::render(const components::ComponentBase* comp, SDL_Renderer* 
     }
     
     Point p = 
-        this->margin.map(
-            Point { comp->_width, comp->_height },
+        this->get_margin().map(
+            Point { comp->get_width(), comp->get_height() },
             Point { (float)sf->w, (float)sf->h },
-            this->horizontal,
-            this->vertical
+            this->get_horizontal(),
+            this->get_vertical()
         );
     SDL_Rect r { (int)p.x, (int)p.y, sf->w, sf->h };
     SDL_FreeSurface(sf);
     
     SDL_RenderCopy(rd, tx, nullptr, &r);
     SDL_DestroyTexture(tx);
-    */
     
+    /*
     Point p = 
         this->margin.map(
             Point {
@@ -58,12 +69,13 @@ void StringContent::render(const components::ComponentBase* comp, SDL_Renderer* 
         rd, p.x, p.y, this->value.c_str(),
         this->color.R(), this->color.G(), this->color.B(), this->color.A()
     );
+    */
     
 }
 
 void StringContent::init() {
     /*
-    ttf = TTF_OpenFont(this->ttf_location.c_str(), this->pt);
+    ttf = TTF_OpenFont(this->font.c_str(), this->size);
     
     if (ttf == nullptr) {
         cout << "\nSDL : " << TTF_GetError();
