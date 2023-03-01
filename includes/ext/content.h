@@ -49,7 +49,7 @@ public:
 
 private:
     string value;
-    color::RGBA color = (unsigned int)0x0;
+    color::RGBA color = (unsigned int)0x000000ff;
     
     string font;
     int size;

@@ -130,45 +130,13 @@ public:
     
     virtual int event_filter(void* userdata, SDL_Event* event) = 0;
     
-    // void set_property(const string& name, const void* const data);
-    // template<typename _ReturnT>
-    // _ReturnT get_property(const string& name) const;
-    
     int evft(void* userdata, SDL_Event* event);
-    
-    // virtual int event_filter(void* userdata, SDL_Event* event) = 0;
     
     Point parent_size;
 
 protected:
     Object this_object = Object(this);
-
-// public:
-//     template<typename _ReturnT>
-//     const _ReturnT operator[] (const string& name) const { return get_property(name); }
-
-// protected:
-//     const unordered_map<string, int> propidx {
-//         { "margin",     0 },
-//         { "horizontal", 1 },
-//         { "vertical",   2 },
-//         { "width",      3 },
-//         { "height",     4 },
-//         { "background", 5 },
-//         { "foreground", 6 }
-//     };
-// 
-// protected:
-//    virtual void* setprop(const string& name, const void* const data) = 0;
-//    virtual const void* getprop(const string& name) const = 0;
 };
-
-/*
-template <typename _ReturnT>
-_ReturnT ComponentBase::get_property(const string& name) const {
-    return *(_ReturnT*)getprop(name);
-}
-*/
 
 class ComponentManager {
 public:

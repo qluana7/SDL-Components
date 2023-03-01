@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "components/component.h"
-#include "components/button.h"
+#include "components/label.h"
 
 #ifdef _WIN32
 #define DEFAULT_FONT "C:\\Windows\\Fonts\\arial.ttf"
@@ -26,21 +26,6 @@ void deinit() {
 #define WIN_WIDTH  300
 #define WIN_HEIGHT 150
 
-void btn1_leave(Object& sender, event::MouseEventArgs e) {
-    auto& btn = sender.cast<components::Button>();
-    btn.set_background(0xcfcfcfff);
-}
-
-void btn1_mouse_down(Object& sender, event::MouseEventArgs e) {
-    auto& btn = sender.cast<components::Button>();
-    btn.set_background(0x7f7f7fff);
-}
-
-void btn1_mouse_up(Object& sender, event::MouseEventArgs e) {
-    auto& btn = sender.cast<components::Button>();
-    btn.set_background(0xcfcfcfff);
-}
-
 int main(int argc, char ** argv) {
     SDL_Init(SDL_INIT_VIDEO);
     
@@ -60,27 +45,21 @@ int main(int argc, char ** argv) {
     
     components::ComponentManager mgr(win);
     
-    components::Button btn1(
+    components::Label hlbael(
         100, 40, align::Margin(-50, -20),
         align::HorizontalAlign::MIDDLE,
         align::VerticalAlign::MIDDLE
     );
+    
+    content::StringContent hstr;
+    hstr.set_horizontal(align::HorizontalAlign::MIDDLE);
+    hstr.set_vertical(align::VerticalAlign::MIDDLE);
+    hstr.set_font(DEFAULT_FONT, 13);
+    hstr.set_value("Hello, World!");
+    hlbael.set_content(hstr);
+    
+    mgr.add_component(&hlbael);
 
-    btn1.mouse_down_event += btn1_mouse_down;
-    btn1.mouse_up_event += btn1_mouse_up;
-    btn1.leave_event += btn1_leave;
-    
-    content::StringContent btn1cnt;
-    
-    btn1cnt.set_font(DEFAULT_FONT, 13);
-    btn1cnt.set_horizontal(align::HorizontalAlign::MIDDLE);
-    btn1cnt.set_vertical(align::VerticalAlign::MIDDLE);
-    btn1cnt.set_value("Click Me!");
-    
-    btn1.set_content(btn1cnt);
-    
-    mgr.add_component(&btn1);
-    
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     
     while (true) {
